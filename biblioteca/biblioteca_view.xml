@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp><data>
+<!-- acciones -->
+<act_window view_mode="tree,form" res_model="biblioteca.autor" name="Autor" id="biblioteca.autor_action_ventana_autor"/>
+<act_window view_mode="tree,form" res_model="biblioteca.llibre" name="Llibre" id="biblioteca.llibre_action_ventana_llibre"/>
+<act_window view_mode="tree,form" res_model="biblioteca.client" name="Cliente" id="biblioteca.client_action_ventana_client"/>
+<act_window view_mode="tree,form" res_model="biblioteca.escriu" name="Escriu" id="biblioteca.escriu_action_ventana_escriu"/>
+<act_window view_mode="tree,form" res_model="biblioteca.prestec" name="Prestec" id="biblioteca.prestec_action_ventana_prestec"/>
+<act_window view_mode="tree,form" res_model="biblioteca.exemplar" name="Exemplar" id="biblioteca.exemplar_action_ventana_exemplar"/>
+
+<!-- menu padre -->
+<menuitem name="Biblioteca" id="main_menu_biblioteca"/>
+
+<!-- menus -->
+<menuitem name="Autor" id="menu_autor" action="biblioteca.autor_action_ventana_autor" parent ="main_menu_biblioteca"/>
+<menuitem name="Llista Autors" id="menu_llista_autor" parent ="menu_autor" action="biblioteca.autor_action_ventana_autor"/>
+<menuitem name="Llibre" id="menu_llibre" action="biblioteca.llibre_action_ventana_llibre" parent="main_menu_biblioteca"/>
+<menuitem name="Client" id="menu_client" action="biblioteca.client_action_ventana_client" parent="main_menu_biblioteca"/>
+<menuitem name="Escriu" id="menu_escriu" action="biblioteca.escriu_action_ventana_escriu" parent ="main_menu_biblioteca"/>
+<menuitem name="Prestec" id="menu_prestec" action="biblioteca.prestec_action_ventana_prestec" parent="main_menu_biblioteca"/>
+<menuitem name="Exemplar" id="menu_exemplar" action="biblioteca.exemplar_action_ventana_exemplar" parent="main_menu_biblioteca"/>
+
+<menuitem name="Llista Llibres" id="menu_llista_llibres" action="biblioteca.llibre_action_ventana_llibre" parent ="menu_llibre"/>
+<menuitem name="Llista Clients" id="menu_llista_clients" action="biblioteca.client_action_ventana_client" parent ="menu_client"/>
+<menuitem name="Llista Escriu" id="menu_llista_escriu" action="biblioteca.escriu_action_ventana_escriu" parent ="menu_escriu"/>
+<menuitem name="Llista Prestec" id="menu_llista_prestec" action="biblioteca.prestec_action_ventana_prestec" parent ="menu_prestec"/>
+<menuitem name="Llista Exemplars" id="menu_llista_exemplar" action="biblioteca.exemplar_action_ventana_exemplar" parent ="menu_exemplar"/>
+
+
+<!--Vista Form y Tree Autor-->
+<record id="biblioteca.autor_form" model="ir.ui.view">
+<field name="name">biblioteca.autor.form</field>
+<field name="model">biblioteca.autor</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+<form>
+<sheet>
+<group>
+<field name="cod"/>
+<field name="nom"/>
+<field name="cognoms"/>
+<field name="nacionalitat"/>
+</group>
+</sheet>
+</form>
+</field></record>
+
+
+<record id="biblioteca.autor_tree" model="ir.ui.view">
+<field name="name">biblioteca.autor.tree</field>
+<field name="model">biblioteca.autor</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+<tree>
+<field name="cod"/>
+<field name="nom"/>
+<field name="cognoms"/>
+<field name="nacionalitat"/>
+</tree>
+</field></record>
+
+<!-- Vista Form y Tree Llibres -->
+
+<record id="biblioteca.llibre_form" model="ir.ui.view">
+<field name="name">biblioteca.llibre.form</field>
+<field name="model">biblioteca.llibre</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+<form>
+<sheet>
+<group>
+<field name="isbn"/>
+<field name="titol"/>
+<field name="editorial"/>
+<field name="pagines"/>
+</group>
+</sheet>
+</form>
+</field>
+</record>
+
+
+<record id="biblioteca.llibre_tree" model="ir.ui.view">
+<field name="name">biblioteca.llibre.tree</field>
+<field name="model">biblioteca.llibre</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+<tree>
+<field name="isbn"/>
+<field name="titol"/>
+<field name="editorial"/>
+<field name="pagines"/>
+</tree>
+</field>
+</record>
+
+
+<!-- Vista Form y Tree Clientes -->
+
+<record id="biblioteca.client_form" model="ir.ui.view">
+<field name="name">biblioteca.client.form</field>
+<field name="model">biblioteca.client</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+<form>
+<sheet>
+<group>
+<field name="cod"/>
+<field name="dni"/>
+<field name="nom"/>
+<field name="cognom"/>
+</group>
+</sheet>
+</form>
+</field>
+</record>
+
+
+<record id="biblioteca.client_tree" model="ir.ui.view">
+<field name="name">biblioteca.client.tree</field>
+<field name="model">biblioteca.client</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+<tree>
+<field name="cod"/>
+<field name="dni"/>
+<field name="nom"/>
+<field name="cognom"/>
+</tree>
+</field>
+</record>
+
+
+<!-- Vista Form y Tree Prestec -->
+
+<record id="biblioteca.prestec_form" model="ir.ui.view">
+<field name="name">biblioteca.prestec.form</field>
+<field name="model">biblioteca.prestec</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+<form>
+<sheet>
+<group>
+<field name="isbn"/>
+<field name="num_exemplar"/>
+<field name="client"/>
+<field name="data_prestec"/>
+<field name="tornat"/>
+<field name="data_retorn" attrs="{'invisible': [('tornat','=',False)]}"/>
+</group>
+</sheet>
+</form>
+</field>
+</record>
+
+
+<record id="biblioteca.prestec_tree" model="ir.ui.view">
+<field name="name">biblioteca.prestec.tree</field>
+<field name="model">biblioteca.prestec</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+<tree colors="red:tornat==False">
+<field name="isbn"/>
+<field name="num_exemplar"/>
+<field name="client"/>
+<field name="data_prestec"/>
+<field name="tornat"/>
+<field name="data_retorn" attrs="{'invisible': [('tornat','=',False)]}"/>
+</tree>
+</field>
+</record>
+
+
+
+<!-- Vista Tree Escriu -->
+
+<record id="biblioteca.escriu_tree" model="ir.ui.view">
+<field name="name">biblioteca.escriu.tree</field>
+<field name="model">biblioteca.escriu</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+<tree>
+<field name="isbn"/>
+<field name="cod"/>
+<field name="date"/>
+</tree>
+</field>
+</record>
+
+<!-- Vista Tree Exemplar -->
+
+<record id="biblioteca.exemplar_tree" model="ir.ui.view">
+<field name="name">biblioteca.exemplar.tree</field>
+<field name="model">biblioteca.exemplar</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+<tree>
+<field name="isbn"/>
+<field name="num"/>
+<field name="prestatge"/>
+</tree>
+</field>
+</record>
+
+
+
+</data></openerp>
+

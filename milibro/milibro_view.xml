@@ -1,0 +1,62 @@
+<openerp>
+	<data>
+		<act_window
+			id="action_milibro"
+			name="MiLibro"
+			res_model="milibro"
+			view_mode="tree,form"
+		/>
+		<menuitem
+			id="main_menu_milibro"
+			name="MiLibro"
+		/>
+		<menuitem
+			id="menu_milibro"
+			name="Afegir Llibres"
+			parent="main_menu_milibro" action="action_milibro"
+		/>
+		<record id="view_filter_milibro" model="ir.ui.view">
+			<field name="name"> MiLibro Tree</field>
+			<field name="model">milibro</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="titol"/>
+					<field name="pagines"/>
+					<field name="autor"/>
+					<field name="editorial"/>
+				</tree>
+			</field>
+		</record>
+		<record id="view_search_milibro" model="ir.ui.view">
+			<field name="name">MiLibro Filter</field>
+			<field name="model">milibro</field>
+			<field name="arch" type="xml">
+				<search>
+					<field name="titol"/>
+		<filter string="Over_100" domain="[('pagines','>',100)]"/>
+		<filter string="Under_100" domain="[('pagines','&lt;',100)]"/>
+				</search>
+			</field>
+		</record>
+		<record id="view_form_milibro" model="ir.ui.view">
+			<field name="name">MiLibro Form</field>
+			<field name="model">milibro</field>'
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group name="group_top">
+						<group name="group_left">
+							<field name="titol"/>
+							<field name="autor"/>
+							</group>
+						<group name="group_right">
+							<field name="pagines"/>
+						<field name="editorial"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+	</data>
+</openerp>

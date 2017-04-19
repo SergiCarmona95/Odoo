@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp><data>
+<!--acciones -->
+<act_window view_mode="tree,form,calendar,graph,kanban" res_model="taller.cotxes" name="Cotxes" id="taller.coche_action_ventana_coche"/>
+<act_window view_mode="tree,form" res_model="taller.propietari" name="Propietari" id="taller.propietari_action_ventana_propietari"/>
+<!-- menu padre-->
+<menuitem name="Taller" id="main_menu_taller"/>
+<!-- menus propietarios-->
+<menuitem name="Propietarios" id="menu_propietarios" action="taller.propietari_action_ventana_propietari" parent="main_menu_taller"/>
+<menuitem name="Lista Propietario" id="menu_lista_propietario" action="taller.propietari_action_ventana_propietari" parent="menu_propietarios"/>
+
+<!--Se define la vista formulario de propietario-->
+<record id="taller.propietari_form" model="ir.ui.view">
+<field name="name">taller.propietari.form</field>
+<field name="model">taller.propietari</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+<form>
+<sheet>
+<group>
+<field name="nom"/>
+<field name="telefon"/>
+<field name="adreca"/>
+</group>
+ </sheet>
+</form>
+</field></record>
+
+<!--Se define la vista lista de propietario-->
+<record id="taller.propietari_tree" model="ir.ui.view"><field name="name">taller.propietari.tree</field><field name="model">taller.propietari</field><field name="type">tree</field><field name="arch" type="xml">
+<tree>
+<field name="nom"/>
+<field name="telefon"/>
+<field name="adreca"/>
+</tree>
+</field></record>
+
+<!--menus coches -->
+<menuitem name="Cotxe" id="menu_coche" action="taller.coche_action_ventana_coche" parent="main_menu_taller" icon="terp-project"/>
+<menuitem name="Lista coches" id="menu_libros_coches" action="taller.coche_action_ventana_coche" parent="menu_coche" icon="terp-project"/>
+
+<!--Se define la vista formulario de coches-->
+<record id="taller.coche_view_form" model="ir.ui.view">
+<field name="name">taller.coche.form</field>
+<field name="model">taller.cotxes</field>
+<field name="type">form</field>
+<field name="arch" type="xml">
+<form><sheet><group>
+<field name="tipus"/>
+<field name="marca"/>
+<field name="modelo"/>
+<field name="color"/>
+<field name="portes"/>
+<field name="matricula"/>
+<field name="numbastidor"/>
+<field name="combustible"/>
+<field name="comentaris"/>
+<field name="fecha"/>
+<field name="reparat"/>
+<field name="fechaSalida" attrs="{'invisible': [('reparat','=',False)]}"/>
+<field name="propietari"/>
+</group></sheet></form>
+</field></record>
+
+<!--Se define la vista lista de coches-->
+<record id="taller.coche_view_tree" model="ir.ui.view">
+<field name="name">taller.coche.tree</field>
+<field name="model">taller.cotxes</field>
+<field name="type">tree</field>
+<field name="arch" type="xml">
+<tree colors="red:reparat==False">
+<field name="tipus"/>
+<field name="marca"/>
+<field name="modelo"/>
+<field name="color"/>
+<field name="portes"/>
+<field name="matricula"/>
+<field name="numbastidor"/>
+<field name="combustible"/>
+<field name="comentaris"/>
+<field name="fecha"/>
+<field name="reparat"/>
+<field name="fechaSalida" attrs="{'invisible': [('reparat','=',False)]}"/>
+<field name="propietari"/>
+</tree></field></record>
+
+
+<record id="view_calendar_taller" model="ir.ui.view">
+    <field name="name">view_calendar_taller</field>
+    <field name="model">taller.cotxes</field>
+    <field name="arch" type="xml">
+        <calendar date_start="fecha" color="propietari" date_stop="fechaSalida">
+             <field name="matricula" />
+            <field name="propietari"  />
+        </calendar>
+    </field>
+</record>
+
+
+<record id="view_graph_taller" model="ir.ui.view">
+    <field name="name">view_graph_taller</field>
+    <field name="model">taller.cotxes</field>
+    <field name="arch" type="xml">
+        <graph type="pivot">
+ 	<field name="matricula" type="col" />
+            <field name="propietari"/>
+            <field name="fecha" interval="week" />
+	    <field name="matricula" type="mesure"/>
+        </graph>
+    </field>
+</record>
+
+
+
+<act_window
+                    id="taller._action_ventana_mecanic"
+                    name="Mecanic"
+                    res_model="taller.mecanic"
+                    view_mode="tree,form"
+            />
+
+ <menuitem name="Mecanic" id="menu_mecanic" parent="main_menu_taller"
+	 action="taller._action_ventana_mecanic"/>
+            
+  <menuitem name="Lista Mecanic"  id="menu_lista_mecanic"
+ action="taller._action_ventana_mecanic" parent="menu_mecanic"/>
+<record id="taller.mecanic_form" model="ir.ui.view">
+                <field name="name">taller.mecanic.form</field>
+                <field name="model">taller.mecanic</field>
+                <field name="type">form</field>
+                <field name="arch" type="xml">
+                    <form>
+                        <sheet>
+                            <group>
+                                <field name="dni"/>
+                                <field name="nomMecanic"/>
+                                <field name="cognomMecanic"/>
+				<field name="rep"/>
+                            </group>
+                        </sheet>
+                    </form>
+                </field>
+            </record>
+            
+            <!--Se define la vista lista de propietaris-->
+            <record id="taller.mecanic_tree" model="ir.ui.view">
+                <field name="name">taller.mecanic.tree</field>
+                <field name="model">taller.mecanic</field>
+                <field name="type">tree</field>
+                <field name="arch" type="xml">
+                    <tree>
+                        <field name="dni"/>
+                                <field name="nomMecanic"/>
+                                <field name="cognomMecanic"/>
+				<field name="rep"/>
+                    </tree>
+                </field>
+            </record>
+
+<record id="taller.coche_view_kanban" model="ir.ui.view">
+	<field name="name">taller.view_cotxes_kanban</field>
+	<field name="model">taller.cotxes</field>
+	<field name="arch" type="xml">
+	<kanban default_group_by="propietari">
+		<field name="colorKanban"/>
+                  <field name="matricula"/>
+                    <field name="propietari"/>
+                    <field name="fecha"/>
+		<field name="reparat"/>
+                    <field name="fechaSalida"/>
+                    <templates>
+                        <t t-name="kanban-box">
+			<div t-attf-class="oe_kanban_card #{kanban_color(record.colorKanban.raw_value)}">
+                            <div class="oe_kanban_global_click">
+				<div class="oe_kanban_content">
+					<div clas="oe_kanban_bottom_right">
+						<a type="open">
+						 	Open
+						</a>
+						<a type="delete">
+							Delete
+						</a>
+						<a type="edit">
+							Edit
+						</a>
+					</div>
+				</div>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <field name="matricula"/>
+                                    </strong>
+                                    <div name="tags">
+                                   	 <ul>
+                                        	<li>Propietari: <field name="propietari"/></li>
+						<li>Fecha Entrada: <field name="fecha"/></li>
+					<t t-if="record.reparat.raw_value==true">
+						<li>Fecha Salida: <field name="fechaSalida"/></li>
+					</t>
+					<t t-if="record.reparat.raw_value==false">
+						<li>No Reparat</li>
+					</t>
+                                   	 </ul>
+                                    </div>
+                                </div>
+                            </div>
+			</div>
+                        </t>
+                    </templates>
+	</kanban>
+</field>
+</record>	
+
+
+
+
+
+</data></openerp>
+
