@@ -33,6 +33,13 @@ class biblioteca_prestec(models.Model):
 	data_prestec=fields.Date('Data Prestec')
 	tornat=fields.Boolean('Tornat?')
 	data_retorn=fields.Date('Data Retorn')
+	def change_color(self):
+		for record in self:
+			if record.tornat==True:
+				record.colorKanban=1
+			elif record.tornat==False:
+				record.colorKanban=2
+	colorKanban=fields.Integer('Index Color',compute='change_color')
 class biblioteca_exemplar(models.Model):
 	_name='biblioteca.exemplar'
 	isbn=fields.Many2one('biblioteca_llibre','ISBN',cascade='ondelete')

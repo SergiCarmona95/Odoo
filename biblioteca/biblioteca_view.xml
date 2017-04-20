@@ -203,6 +203,60 @@
 </record>
 
 
+<!-- Vista Kanban Prestec-->
+ <record id="biblioteca.prestec_vire_kanban" model="ir.ui.view">
+        <field name="name">biblioteca.prestec_vire_kanban</field>
+        <field name="model">biblioteca.prestec</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="client">   
+                <field name="colorKanban"/>  
+                <field name="isbn"/> 
+                <field name="exemplar"/>  
+                <field name="data_prestec"/>  
+                <field name="tornat"/>  
+                <field name="data_retorn"/> 
+                <templates>     
+                    <t t-name="kanban-box">  	
+                        <div t-attf-class="oe_kanban_card #{kanban_color(record.colorKanban.raw_value)}">       
+                            <div class="oe_kanban_global_click">   
+                                <div class="oe_kanban_content">
+                                    <div clas="oe_kanban_bottom_right">
+                                        <a type="open">
+                                            Open
+                                        </a>
+                                        <a type="delete">
+                                            Delete
+                                        </a>
+                                        <a type="edit">
+                                            Edit
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_details">
+                                    <strong>
+                                        <field name="isbn"/>
+                                    </strong>
+                                    <div name="tags">
+                                        <ul>
+                                            <li>Exemplar: <field name="exemplar"/></li>
+                                            <li>Fecha Prestamo: <field name="data_prestec"/></li>
+                                            <t t-if="record.tornat.raw_value==true">
+                                                <li>Fecha Devolucion: <field name="data_retorn"/></li>
+                                            </t>
+                                            <t t-if="record.tornat.raw_value==false">
+                                                <li>No Reparat</li>
+                                            </t>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>	
+
 
 </data></openerp>
 
